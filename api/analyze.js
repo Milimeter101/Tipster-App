@@ -8,35 +8,36 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Match query is required' });
     }
 
-    const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY;
+    // 🔑 သင့်ရဲ့ RapidAPI Key ကို ဤနေရာတွင် တိုက်ရိုက်ထည့်သွင်းပြီးပါပြီ
+    const RAPIDAPI_KEY = "22735344cdmsh9e9cadbcb292bbap199c91jsn378162cd0469";
     const GEMINI_API_KEY = apiKey || process.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
-        return res.status(400).json({ error: 'Gemini API Key လိုအပ်ပါသည်။' });
+        return res.status(400).json({ error: 'Gemini API Key လိုအပ်ပါသည်။ Settings တွင် ထည့်သွင်းပါ။' });
     }
 
     // ၁။ Football API (RapidAPI) မှ Real Data ဆွဲထုတ်ခြင်း
     let footballApiData = "Live Football API data unavailable.";
-    if (RAPIDAPI_KEY) {
-        try {
-            const apiRes = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?search=${encodeURIComponent(matchQuery)}`, {
-                headers: {
-                    'x-rapidapi-key': RAPIDAPI_KEY,
-                    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
-                }
-            });
-            if (apiRes.ok) {
-                const apiJson = await apiRes.json();
-                if (apiJson.response && apiJson.response.length > 0) {
-                    const fix = apiJson.response[0];
-                    footballApiData = `Match Found: ${fix.teams.home.name} vs ${fix.teams.away.name} | League: ${fix.league.name} (${fix.league.country}) | Date: ${fix.fixture.date}`;
-                } else {
-                    footballApiData = `Match query '${matchQuery}' API တွင် တိုက်ရိုက်မတွေ့ရှိပါ။ အထွေထွေအချက်အလက်ဖြင့် ဆန်းစစ်ပါ။`;
-                }
+    try {
+        const apiRes = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?search=${encodeURIComponent(matchQuery)}`, {
+            headers: {
+                'x-rapidapi-key': RAPIDAPI_KEY,
+                'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
             }
-        } catch (e) {
-            footballApiData = `Football API fetch error: ${e.message}`;
+        });
+        if (apiRes.ok) {
+            const apiJson = await apiRes.json();
+            if (apiJson.response && apiJson.response.length > 0) {
+                const fix = apiJson.response[0];
+                footballApiData = `Match Found: ${fix.teams.home.name} vs ${fix.teams.away.name} | League: ${fix.league.name} (${fix.league.country}) | Date: ${fix.fixture.date} | Status: ${fix.fixture.status.long}`;
+            } else {
+                footballApiData = `Match query '${matchQuery}' API တွင် တိုက်ရိုက်မတွေ့ရှိပါ။ အထွေထွေအချက်အလက်ဖြင့် ဆန်းစစ်ပါ။`;
+            }
+        } else {
+            footballApiData = `Football API response status: ${apiRes.status}`;
         }
+    } catch (e) {
+        footballApiData = `Football API fetch error: ${e.message}`;
     }
 
     // ၂။ Gemini AI သို့ Real Data နှင့်တကွ ပို့၍ သုံးသပ်ခိုင်းခြင်း

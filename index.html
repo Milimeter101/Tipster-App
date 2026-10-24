@@ -60,7 +60,7 @@
                     <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
                         Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
                     </h1>
-                    <p class="text-xs text-slate-400">1xBet Screenshot Odds & AI သုံးသပ်ချက်</p>
+                    <p class="text-xs text-slate-400">Multi-Screenshot 1xBet & Form Analysis</p>
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
             <div class="lg:col-span-1 space-y-5">
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-5 shadow-xl space-y-4">
                     <h2 class="text-base font-semibold mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ်နှင့် 1xBet Screenshot တင်ရန်
+                        <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ်နှင့် Screenshots ၃ ပုံ တင်ရန်
                     </h2>
 
                     <form id="analyzeForm" class="space-y-3">
@@ -96,21 +96,48 @@
                             </div>
                         </div>
 
-                        <!-- 1xBet Odds Screenshot Upload (Responsive Long Screenshot Fixed) -->
-                        <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-2">
-                            <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                                <i class="fa-solid fa-image"></i> 1xBet Odds Screenshot တင်ရန်
-                            </label>
-                            <input type="file" id="screenshotInput" accept="image/*"
-                                class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
-                            
-                            <div id="imagePreviewContainer" class="hidden mt-2 relative">
-                                <div class="max-h-44 overflow-y-auto rounded-lg border border-brand-border bg-brand-dark p-1">
-                                    <img id="imagePreview" class="w-full h-auto object-contain rounded">
+                        <!-- 3 Screenshots Upload Section -->
+                        <div class="space-y-3">
+                            <!-- 1. Handicap Screenshot -->
+                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
+                                <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-image"></i> ၁။ Handicap / Odds Screenshot
+                                </label>
+                                <input type="file" id="oddsImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer">
+                                <div id="oddsPreviewContainer" class="hidden relative mt-1">
+                                    <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
+                                        <img id="oddsPreview" class="w-full h-auto object-contain rounded">
+                                    </div>
+                                    <button type="button" onclick="removeImage('odds')" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]"><i class="fa-solid fa-xmark"></i></button>
                                 </div>
-                                <button type="button" id="removeImgBtn" class="absolute top-3 right-3 bg-red-500/90 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-lg hover:bg-red-600 transition">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
+                            </div>
+
+                            <!-- 2. Team 1 Recent Games -->
+                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
+                                <label class="block text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-image"></i> ၂။ အသင်း (၁) နောက်ဆုံးပွဲများ SS
+                                </label>
+                                <input type="file" id="team1ImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
+                                <div id="team1PreviewContainer" class="hidden relative mt-1">
+                                    <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
+                                        <img id="team1Preview" class="w-full h-auto object-contain rounded">
+                                    </div>
+                                    <button type="button" onclick="removeImage('team1')" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- 3. Team 2 Recent Games -->
+                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
+                                <label class="block text-xs font-bold text-sky-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-image"></i> ၃။ အသင်း (၂) နောက်ဆုံးပွဲများ SS
+                                </label>
+                                <input type="file" id="team2ImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-sky-500/10 file:text-sky-400 hover:file:bg-sky-500/20 cursor-pointer">
+                                <div id="team2PreviewContainer" class="hidden relative mt-1">
+                                    <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
+                                        <img id="team2Preview" class="w-full h-auto object-contain rounded">
+                                    </div>
+                                    <button type="button" onclick="removeImage('team2')" class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
                             </div>
                         </div>
 
@@ -126,7 +153,7 @@
                         <button type="submit" id="analyzeBtn" 
                             class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span>AI ဖြင့် သုံးသပ်မည် (Analyze)</span>
+                            <span>AI ဖြင့် ပုံ ၃ ပုံစလုံး ဆန်းစစ်မည်</span>
                         </button>
                     </form>
 
@@ -171,22 +198,22 @@
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
                             <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold">1xBet Screenshot နှင့် Real Data များကို AI ဖြင့် ဖတ်ရှုဆန်းစစ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Real Data များကို Gemini AI ဖြင့် နှိုင်းယှဉ်ဆန်းစစ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
                     <div id="emptyState" class="my-auto py-16 flex flex-col items-center justify-center text-center space-y-3">
                         <div class="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center text-slate-500 text-2xl">
-                            <i class="fa-solid fa-image"></i>
+                            <i class="fa-solid fa-images"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-400">1xBet Screenshot တင်၍ "Analyze" ကို နှိပ်ပါ</p>
+                        <p class="text-sm font-medium text-slate-400">Screenshot ၃ ပုံတင်ပြီး "Analyze" ကို နှိပ်ပါ</p>
                     </div>
 
                     <!-- MARKDOWN OUTPUT -->
                     <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> 1xBet Screenshot + Gemini 3.8 Flash Vision</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Vision AI + Football API</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -217,10 +244,6 @@
 
     <script>
         const matchInput = document.getElementById('matchInput');
-        const screenshotInput = document.getElementById('screenshotInput');
-        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
-        const imagePreview = document.getElementById('imagePreview');
-        const removeImgBtn = document.getElementById('removeImgBtn');
         const analyzeForm = document.getElementById('analyzeForm');
         const analysisDepth = document.getElementById('analysisDepth');
         const analyzeBtn = document.getElementById('analyzeBtn');
@@ -234,26 +257,32 @@
         const loadFixturesBtn = document.getElementById('loadFixturesBtn');
 
         let rawMarkdownResult = "";
-        let base64Image = null;
+        let imagesData = { odds: null, team1: null, team2: null };
 
-        screenshotInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (uploadEvent) => {
-                    base64Image = uploadEvent.target.result;
-                    imagePreview.src = base64Image;
-                    imagePreviewContainer.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        function handleImageUpload(inputElement, previewContainerId, previewImgId, keyName) {
+            inputElement.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        imagesData[keyName] = ev.target.result;
+                        document.getElementById(previewImgId).src = imagesData[keyName];
+                        document.getElementById(previewContainerId).classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
 
-        removeImgBtn.addEventListener('click', () => {
-            screenshotInput.value = '';
-            base64Image = null;
-            imagePreviewContainer.classList.add('hidden');
-        });
+        handleImageUpload(document.getElementById('oddsImgInput'), 'oddsPreviewContainer', 'oddsPreview', 'odds');
+        handleImageUpload(document.getElementById('team1ImgInput'), 'team1PreviewContainer', 'team1Preview', 'team1');
+        handleImageUpload(document.getElementById('team2ImgInput'), 'team2PreviewContainer', 'team2Preview', 'team2');
+
+        function removeImage(type) {
+            imagesData[type] = null;
+            document.getElementById(`${type}ImgInput`).value = '';
+            document.getElementById(`${type}PreviewContainer`).classList.add('hidden');
+        }
 
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
@@ -327,7 +356,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         matchQuery,
-                        imageBase64: base64Image || '',
+                        images: imagesData,
                         analysisDepth: analysisDepth.value,
                         apiKey: localStorage.getItem('custom_gemini_key') || ''
                     })

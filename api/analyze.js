@@ -15,7 +15,6 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Gemini API Key လိုအပ်ပါသည်။ Settings တွင် ထည့်သွင်းပါ။' });
     }
 
-    // ၁။ Football API မှ Real Match Data ဆွဲထုတ်ခြင်း
     let footballApiData = "Live Football API fixture data unavailable.";
     try {
         const apiRes = await fetch(`https://api-football-v1.p.rapidapi.com/v3/fixtures?search=${encodeURIComponent(matchQuery)}`, {
@@ -35,22 +34,21 @@ export default async function handler(req, res) {
         footballApiData = `Football API error: ${e.message}`;
     }
 
-    // ၂။ Gemini AI သို့ ၃ ပုံနှင့်တကွ Value Bets & Multi-Bookmaker Odds များကို ဆန်းစစ်ခိုင်းခြင်း
-    const systemInstruction = "You are Top Tipster AI (Pro Analyst), an elite football betting and odds analyst writing in fluent, professional Burmese language. You specialize in multi-screenshot analysis, uncovering value bets, handicap traps, and bookmaker odds discrepancies.";
+    const systemInstruction = "You are Top Tipster AI (Pro Analyst), an elite football betting and odds analyst writing in fluent, professional Burmese language. You specialize in multi-screenshot analysis, handicap traps, over/under goals, and BTTS market trends.";
     
     const userPromptText = `Analyze this match comprehensively based on the provided 3 screenshots (Odds, Team 1 Form, Team 2 Form) and Football API real data:
 - Match Query: ${matchQuery}
 - Football API Data: ${footballApiData}
-- Analysis Focus: ${analysisDepth}
+- Analysis Selected Focus: ${analysisDepth}
 
-Please read and cross-analyze:
-1. Handicap & Odds Screenshot: Identify exact odds, handicap lines, and potential Value Bets where bookmaker pricing might be misaligned.
-2. Team 1 Recent Form Screenshot: Analyze trends, goal scoring/conceding ratios.
-3. Team 2 Recent Form Screenshot: Analyze trends, goal scoring/conceding ratios.
+Please read and cross-analyze the screenshots according to the chosen market focus:
+1. Handicap Screenshot: Identify exact lines, odds, and potential value bets or traps.
+2. Team 1 Form Screenshot: Analyze goal trends, defensive clean sheets, recent scores.
+3. Team 2 Form Screenshot: Analyze goal trends, defensive clean sheets, recent scores.
 
 Provide a professional Burmese betting analysis focusing on:
 1. Form & Tactical Trend Analysis (အသင်းနှစ်သင်း၏ နောက်ဆုံးပွဲစဉ် ရလဒ်ပုံစံများနှင့် နှိုင်းယှဉ်ချက်)
-2. Bookmaker Odds Traps & Value Bets (ဘွတ်ကီကြေး မာယာများ၊ ထောင်ခောက်များနှင့် တန်ဖိုးရှိသော ရွေးချယ်မှု Value Bets များကို ဖော်ထုတ်ရန်)
+2. Market Specific Analysis (If Over/Under focus: detail goal trends. If BTTS: detail both teams scoring probability. If Handicap: detail bookie traps).
 3. Pro Analyst Recommendations (Safe Pick, Alternative Pick, Correct Score)`;
 
     let contentsParts = [{ text: userPromptText }];

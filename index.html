@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Tipster AI - Pro Football Betting Analyst</title>
+    <!-- Telegram Mini App Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -60,7 +62,7 @@
                     <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
                         Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Screenshot 1xBet & Value Bets Analysis</p>
+                    <p class="text-xs text-slate-400">Multi-Market Odds & Telegram Mini App</p>
                 </div>
             </div>
 
@@ -141,19 +143,22 @@
                             </div>
                         </div>
 
+                        <!-- Multi-Market Focus Selector -->
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">သုံးသပ်ချက် ပုံစံ</label>
+                            <label class="block text-xs font-medium text-slate-400 mb-1"><i class="fa-solid fa-sliders text-amber-400"></i> Market Focus Selector</label>
                             <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-emerald-500">
-                                <option value="standard">Standard Analysis (ပုံမှန်သုံးသပ်ချက်)</option>
-                                <option value="parlay">Parlay / မောင်း Focus (မောင်းတွဲရန် အန္တရာယ်ကင်း)</option>
+                                <option value="standard">Standard Analysis (ပုံမှန်ဆန်းစစ်ချက်)</option>
                                 <option value="trap">Handicap Line Trap Focus (ကြေးမာယာ ထောင်ခောက်)</option>
+                                <option value="overunder">Over / Under Goals Focus (ဂိုးပေါင်း အနည်း/အများ Focus)</option>
+                                <option value="btts">BTTS Focus (နှစ်ဖက်စလုံး ဂိုးသွင်းနိုင်ချေ Focus)</option>
+                                <option value="parlay">Parlay / မောင်း Focus (မောင်းတွဲရန် အန္တရာယ်ကင်း)</option>
                             </select>
                         </div>
 
                         <button type="submit" id="analyzeBtn" 
                             class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span>AI ဖြင့် Value Bets များ ဆန်းစစ်မည်</span>
+                            <span>AI ဖြင့် Multi-Market ဆန်းစစ်မည်</span>
                         </button>
                     </form>
 
@@ -198,7 +203,7 @@
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
                             <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Value Bets များကို Gemini AI ဖြင့် နှိုင်းယှဉ်ဆန်းစစ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Multi-Market Data များကို Gemini AI ဖြင့် ဆန်းစစ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
@@ -213,7 +218,7 @@
                     <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Vision AI + History Storage</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Market AI + Telegram Mini App</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -262,6 +267,12 @@
     </div>
 
     <script>
+        // Initialize Telegram Mini App
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+
         const matchInput = document.getElementById('matchInput');
         const analyzeForm = document.getElementById('analyzeForm');
         const analysisDepth = document.getElementById('analysisDepth');
@@ -342,7 +353,7 @@
         function saveToHistory(match, analysis) {
             let history = JSON.parse(localStorage.getItem('top_tipster_history') || '[]');
             history.unshift({ match, analysis, time: new Date().toLocaleString() });
-            if(history.length > 20) history.pop(); // Keep last 20
+            if(history.length > 20) history.pop();
             localStorage.setItem('top_tipster_history', JSON.stringify(history));
         }
 
@@ -448,7 +459,6 @@
                 markdownOutput.innerHTML = marked.parse(data.analysis);
                 timestampText.innerText = new Date().toLocaleTimeString();
 
-                // Save to History
                 saveToHistory(matchQuery, data.analysis);
 
             } catch (err) {

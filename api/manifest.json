@@ -1,6 +1,7 @@
 {
   "name": "Top Tipster AI - Pro Football Betting Analyst",
   "short_name": "Top Tipster AI",
+  "description": "Pro football betting analyst and multi-market odds predictor powered by AI.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0F17",
@@ -9,7 +10,8 @@
     {
       "src": "icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

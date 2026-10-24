@@ -118,18 +118,6 @@
         <!-- သင့်ရဲ့ App ပင်မကုဒ်များ -->
     </div>
 
-    <!-- ၃။ JavaScript (</body> မပိတ်ခင် အောက်ဆုံးမှာ ထည့်ပါ) -->
-    <script>
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const splash = document.getElementById('app-splash');
-                if (splash) {
-                    splash.style.opacity = '0';
-                    setTimeout(() => splash.remove(), 500);
-                }
-            }, 1000);
-        });
-    </script>
     <!-- MAIN CONTENT -->
     <main class="w-full max-w-7xl mx-auto px-3 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-6 flex-grow overflow-x-hidden">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
@@ -531,6 +519,20 @@
             const tgText = `🔥 **Top Tipster AI Pro Analyst** 🔥\n\n` + rawMarkdownResult + `\n\n📌 *Powered by Top Tipster AI Web App*`;
             navigator.clipboard.writeText(tgText).then(() => alert('Telegram ပုံစံဖြင့် ကူးယူပြီးပါပြီ!'));
         }
+    </script>
+
+    
+    <!-- ၃။ JavaScript (</body> မပိတ်ခင် အောက်ဆုံးမှာ ထည့်ပါ) -->
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('app-splash');
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.remove(), 500);
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>

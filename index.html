@@ -90,22 +90,27 @@
                         <div>
                             <label class="block text-xs font-medium text-slate-400 mb-1">ပွဲစဉ်အမည် (Match Query)</label>
                             <div class="relative">
-                                <input type="text" id="matchInput" placeholder="e.g. Ipswich vs Nottingham" required
+                                <input type="text" id="matchInput" placeholder="e.g. Chelsea vs Tottenham" required
                                     class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-2.5 pl-10 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
                             </div>
                         </div>
 
-                        <!-- 1xBet Odds Screenshot Upload -->
+                        <!-- 1xBet Odds Screenshot Upload (Responsive Long Screenshot Fixed) -->
                         <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-2">
                             <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
                                 <i class="fa-solid fa-image"></i> 1xBet Odds Screenshot တင်ရန်
                             </label>
                             <input type="file" id="screenshotInput" accept="image/*"
                                 class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
+                            
                             <div id="imagePreviewContainer" class="hidden mt-2 relative">
-                                <img id="imagePreview" class="w-full h-32 object-cover rounded-lg border border-brand-border">
-                                <button type="button" id="removeImgBtn" class="absolute top-1 right-1 bg-red-500/80 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+                                <div class="max-h-44 overflow-y-auto rounded-lg border border-brand-border bg-brand-dark p-1">
+                                    <img id="imagePreview" class="w-full h-auto object-contain rounded">
+                                </div>
+                                <button type="button" id="removeImgBtn" class="absolute top-3 right-3 bg-red-500/90 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-lg hover:bg-red-600 transition">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -181,7 +186,7 @@
                     <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> 1xBet Screenshot + Gemini 1.5 Flash Vision</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> 1xBet Screenshot + Gemini 3.8 Flash Vision</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -231,7 +236,6 @@
         let rawMarkdownResult = "";
         let base64Image = null;
 
-        // Image Upload Preview Logic
         screenshotInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -273,7 +277,6 @@
         document.getElementById('openKeyModal').addEventListener('click', () => keyModal.classList.remove('hidden'));
         document.getElementById('closeKeyModal').addEventListener('click', () => keyModal.classList.add('hidden'));
         document.getElementById('saveKeyBtn').addEventListener('click', () => {
-            // FIXED: changed bracket `]` to parenthesis `)`
             localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput').value.trim());
             keyModal.classList.add('hidden');
         });
@@ -345,9 +348,7 @@
             } catch (err) {
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-                // show error inside empty state or alert
+                emptyState.classList.remove('hidden');
                 alert('Error: ' + err.message);
             } finally {
                 analyzeBtn.disabled = false;

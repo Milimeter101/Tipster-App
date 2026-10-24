@@ -30,22 +30,18 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Inter:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Inter', 'Padauk', sans-serif;
-            background-color: #0B0F17;
-            color: #E2E8F0;
-        }
+        body { font-family: 'Inter', 'Padauk', sans-serif; background-color: #0B0F17; color: #E2E8F0; transition: background 0.3s, color 0.3s; }
+        .light { background-color: #F8FAFC !important; color: #0F172A !important; }
+        .light .bg-brand-card { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; color: #0F172A !important; }
+        .light .bg-brand-dark { background-color: #F1F5F9 !important; border-color: #CBD5E1 !important; color: #0F172A !important; }
+        .light .text-white { color: #0F172A !important; }
+        .light .text-slate-400, .light .text-slate-500 { color: #64748B !important; }
+        
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0B0F17; }
+        ::-webkit-scrollbar-track { background: inherit; }
         ::-webkit-scrollbar-thumb { background: #2A3447; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #10B981; }
         .neon-glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
-            color: #F59E0B;
-            font-weight: bold;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #F59E0B; font-weight: bold; margin-top: 1rem; margin-bottom: 0.5rem; }
         .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.5rem; }
         .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
         .markdown-body strong { color: #10B981; }
@@ -61,15 +57,19 @@
                     <i class="fa-solid fa-chart-line text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg md:text-xl text-white flex items-center gap-2">
+                    <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
                         Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
                     </h1>
                     <p class="text-xs text-slate-400">Football API & AI ဘွတ်ကီကြေး မာယာသုံးသပ်ချက် စနစ်</p>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                <button id="openKeyModal" class="bg-brand-border hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 transition">
+            <div class="flex items-center space-x-2">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 p-2.5 rounded-xl text-amber-400 text-xs transition">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+                <button id="openKeyModal" class="bg-brand-border hover:bg-slate-700 px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-2 transition">
                     <i class="fa-solid fa-key text-amber-400"></i> Settings
                 </button>
             </div>
@@ -80,10 +80,10 @@
     <main class="max-w-7xl mx-auto w-full px-4 py-6 space-y-6 flex-grow">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- LEFT FORM -->
+            <!-- LEFT FORM & FIXTURES TAB -->
             <div class="lg:col-span-1 space-y-5">
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-5 shadow-xl">
-                    <h2 class="text-base font-semibold text-white mb-4 flex items-center gap-2">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-5 shadow-xl space-y-4">
+                    <h2 class="text-base font-semibold mb-2 flex items-center gap-2">
                         <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ် သုံးသပ်ရန် ထည့်သွင်းပါ
                     </h2>
 
@@ -92,14 +92,14 @@
                             <label class="block text-xs font-medium text-slate-400 mb-1">ပွဲစဉ်အမည် (Match Query)</label>
                             <div class="relative">
                                 <input type="text" id="matchInput" placeholder="e.g. Chelsea vs Tottenham" required
-                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
+                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-3 pl-10 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-xs font-medium text-slate-400 mb-1">သုံးသပ်ချက် ပုံစံ ရွေးချယ်ပါ</label>
-                            <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                            <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-emerald-500">
                                 <option value="standard">Standard Analysis (ပုံမှန်သုံးသပ်ချက်)</option>
                                 <option value="parlay">Parlay / မောင်း Focus (မောင်းတွဲရန် အန္တရာယ်ကင်း)</option>
                                 <option value="trap">Handicap Line Trap Focus (ကြေးမာယာ ထောင်ခောက်)</option>
@@ -107,18 +107,22 @@
                         </div>
 
                         <button type="submit" id="analyzeBtn" 
-                            class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 text-slate-950 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition">
+                            class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                             <span>AI ဖြင့် သုံးသပ်မည် (Analyze)</span>
                         </button>
                     </form>
 
-                    <div class="mt-5 pt-4 border-t border-brand-border">
-                        <span class="text-xs text-slate-400 mb-2 block font-medium">လူကြိုက်များသော ပွဲစဉ်များ:</span>
-                        <div class="flex flex-wrap gap-1.5">
-                            <button class="preset-btn text-xs bg-brand-dark hover:bg-slate-800 border border-brand-border text-slate-300 px-2.5 py-1.5 rounded-lg transition">Chelsea vs Tottenham</button>
-                            <button class="preset-btn text-xs bg-brand-dark hover:bg-slate-800 border border-brand-border text-slate-300 px-2.5 py-1.5 rounded-lg transition">Real Madrid vs Barcelona</button>
-                            <button class="preset-btn text-xs bg-brand-dark hover:bg-slate-800 border border-brand-border text-slate-300 px-2.5 py-1.5 rounded-lg transition">Arsenal vs Man City</button>
+                    <!-- LIVE TODAY FIXTURES WIDGET -->
+                    <div class="pt-4 border-t border-brand-border space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                                <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i> ယနေ့ ပွဲစဉ်များ (Live Fixtures)
+                            </span>
+                            <button id="loadFixturesBtn" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded hover:bg-emerald-500/20">ဆွဲထုတ်မည်</button>
+                        </div>
+                        <div id="fixturesList" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                            <p class="text-xs text-slate-500 italic text-center py-3">"ဆွဲထုတ်မည်" ကိုနှိပ်၍ ယနေ့ပွဲစဉ်များကို ရယူပါ။</p>
                         </div>
                     </div>
                 </div>
@@ -126,16 +130,22 @@
 
             <!-- RIGHT DISPLAY -->
             <div class="lg:col-span-2 space-y-5">
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl relative min-h-[400px] flex flex-col justify-between">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl relative min-h-[420px] flex flex-col justify-between">
                     
                     <div class="flex items-center justify-between pb-4 border-b border-brand-border">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <h3 class="font-semibold text-white text-sm md:text-base" id="matchTitleHeader">သုံးသပ်ချက် ရလဒ်</h3>
+                            <h3 class="font-semibold text-sm md:text-base" id="matchTitleHeader">သုံးသပ်ချက် ရလဒ်</h3>
                         </div>
-                        <button id="copyTipBtn" class="hidden bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-                            <i class="fa-regular fa-copy"></i> <span>ကူးယူမည်</span>
-                        </button>
+                        <!-- Social / Telegram Export Buttons -->
+                        <div class="hidden flex items-center gap-2" id="exportActionBtns">
+                            <button onclick="copyTelegramFormat()" class="bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+                                <i class="fa-brands fa-telegram"></i> <span>Telegram Copy</span>
+                            </button>
+                            <button onclick="copyStandardResult()" class="bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+                                <i class="fa-regular fa-copy"></i> <span>ကူးယူမည်</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- LOADING STATE -->
@@ -145,22 +155,22 @@
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
                             <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold text-white">Football API Real Data နှင့် ဘွတ်ကီကြေးများ ဆွဲထုတ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-sm font-semibold">Football API Real Data နှင့် ဘွတ်ကီကြေးများ ဆွဲထုတ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
                     <div id="emptyState" class="my-auto py-16 flex flex-col items-center justify-center text-center space-y-3">
-                        <div class="w-16 h-16 rounded-full bg-slate-800 border border-brand-border flex items-center justify-center text-slate-500 text-2xl">
+                        <div class="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center text-slate-500 text-2xl">
                             <i class="fa-solid fa-chart-pie"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-400">ပွဲစဉ်ရိုက်ထည့်၍ "Analyze" ကို နှိပ်ပါ</p>
+                        <p class="text-sm font-medium text-slate-400">ပွဲစဉ်ရိုက်ထည့်ပါ သို့မဟုတ် ဘယ်ဘက်မှ ယနေ့ပွဲစဉ်ကို ရွေးချယ်ပါ</p>
                     </div>
 
                     <!-- MARKDOWN OUTPUT -->
-                    <div id="markdownOutput" class="markdown-body hidden py-4 text-slate-300 text-sm leading-relaxed overflow-x-auto"></div>
+                    <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Football API + Gemini 3.8 Flash</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Football API + Gemini Pro</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -173,7 +183,7 @@
     <div id="keyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
         <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl relative">
             <div class="flex justify-between items-center border-b border-brand-border pb-3">
-                <h3 class="font-bold text-white flex items-center gap-2">
+                <h3 class="font-bold flex items-center gap-2">
                     <i class="fa-solid fa-key text-amber-400"></i> Gemini API Key (Optional)
                 </h3>
                 <button id="closeKeyModal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -181,7 +191,7 @@
             <div>
                 <label class="block text-xs font-medium text-slate-300 mb-1">Custom API Key</label>
                 <input type="password" id="customApiKeyInput" placeholder="AIzaSy..." 
-                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-emerald-500">
+                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs placeholder-slate-600 focus:outline-none focus:border-emerald-500">
             </div>
             <div class="flex justify-end space-x-2 pt-2">
                 <button id="saveKeyBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition">သိမ်းဆည်းမည်</button>
@@ -197,10 +207,34 @@
         const loadingState = document.getElementById('loadingState');
         const emptyState = document.getElementById('emptyState');
         const markdownOutput = document.getElementById('markdownOutput');
-        const copyTipBtn = document.getElementById('copyTipBtn');
+        const exportActionBtns = document.getElementById('exportActionBtns');
         const matchTitleHeader = document.getElementById('matchTitleHeader');
         const timestampText = document.getElementById('timestampText');
+        const fixturesList = document.getElementById('fixturesList');
+        const loadFixturesBtn = document.getElementById('loadFixturesBtn');
 
+        let rawMarkdownResult = "";
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        themeToggleBtn.addEventListener('click', () => {
+            const htmlTag = document.documentElement;
+            htmlTag.classList.toggle('light');
+            if(htmlTag.classList.contains('light')) {
+                themeIcon.className = "fa-solid fa-sun";
+                localStorage.setItem('top_tipster_theme', 'light');
+            } else {
+                themeIcon.className = "fa-solid fa-moon";
+                localStorage.setItem('top_tipster_theme', 'dark');
+            }
+        });
+        if(localStorage.getItem('top_tipster_theme') === 'light') {
+            document.documentElement.classList.add('light');
+            themeIcon.className = "fa-solid fa-sun";
+        }
+
+        // Modal Controls
         const keyModal = document.getElementById('keyModal');
         document.getElementById('openKeyModal').addEventListener('click', () => keyModal.classList.remove('hidden'));
         document.getElementById('closeKeyModal').addEventListener('click', () => keyModal.classList.add('hidden'));
@@ -209,18 +243,39 @@
             keyModal.classList.add('hidden');
         });
 
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.addEventListener('click', () => { matchInput.value = btn.innerText; triggerAnalysis(); });
+        analyzeForm.addEventListener('submit', (e) => { e.preventDefault(); triggerAnalysis(matchInput.value.trim()); });
+
+        // Load Today Fixtures from Backend
+        loadFixturesBtn.addEventListener('click', async () => {
+            fixturesList.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-3">ယနေ့ပွဲစဉ်များကို ဆွဲထုတ်နေသည်...</p>`;
+            try {
+                const res = await fetch('/api/fixtures');
+                const data = await res.json();
+                if(data.fixtures && data.fixtures.length > 0) {
+                    fixturesList.innerHTML = data.fixtures.map(f => `
+                        <div class="p-2 rounded-xl bg-brand-dark border border-brand-border hover:border-emerald-500 cursor-pointer text-xs transition" onclick="selectFixture('${f}')">
+                            <span class="font-medium text-emerald-400">⚽ ${f}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    fixturesList.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-3">ယနေ့ တိုက်ရိုက်ပွဲစဉ် မတွေ့ရှိပါ။</p>`;
+                }
+            } catch(err) {
+                fixturesList.innerHTML = `<p class="text-xs text-red-400 italic text-center py-3">ပွဲစဉ်ဆွဲထုတ်၍ မရပါ။</p>`;
+            }
         });
 
-        analyzeForm.addEventListener('submit', (e) => { e.preventDefault(); triggerAnalysis(); });
+        function selectFixture(matchName) {
+            matchInput.value = matchName;
+            triggerAnalysis(matchName);
+        }
 
-        async function triggerAnalysis() {
-            const matchQuery = matchInput.value.trim();
+        async function triggerAnalysis(matchQuery) {
             if (!matchQuery) return;
 
             emptyState.classList.add('hidden');
             markdownOutput.classList.add('hidden');
+            exportActionBtns.classList.add('hidden');
             loadingState.classList.remove('hidden');
             loadingState.classList.add('flex');
             analyzeBtn.disabled = true;
@@ -243,8 +298,9 @@
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
                 markdownOutput.classList.remove('hidden');
-                copyTipBtn.classList.remove('hidden');
+                exportActionBtns.classList.remove('hidden');
 
+                rawMarkdownResult = data.analysis;
                 markdownOutput.innerHTML = marked.parse(data.analysis);
                 timestampText.innerText = new Date().toLocaleTimeString();
 
@@ -256,6 +312,17 @@
             } finally {
                 analyzeBtn.disabled = false;
             }
+        }
+
+        function copyStandardResult() {
+            if (!rawMarkdownResult) return;
+            navigator.clipboard.writeText(rawMarkdownResult).then(() => alert('သုံးသပ်ချက်ကို ကူးယူပြီးပါပြီ!'));
+        }
+
+        function copyTelegramFormat() {
+            if (!rawMarkdownResult) return;
+            const tgText = `🔥 **Top Tipster AI Pro Analyst** 🔥\n\n` + rawMarkdownResult + `\n\n📌 *Powered by Top Tipster AI Web App*`;
+            navigator.clipboard.writeText(tgText).then(() => alert('Telegram Channel ပုံစံဖြင့် ကူးယူပြီးပါပြီ!'));
         }
     </script>
 </body>

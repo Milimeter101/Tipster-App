@@ -60,12 +60,11 @@
                     <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
                         Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Football API & AI ဘွတ်ကီကြေး မာယာသုံးသပ်ချက် စနစ်</p>
+                    <p class="text-xs text-slate-400">1xBet Screenshot Odds & AI သုံးသပ်ချက်</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-2">
-                <!-- Theme Toggle Button -->
                 <button id="themeToggleBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 p-2.5 rounded-xl text-amber-400 text-xs transition">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
@@ -80,26 +79,39 @@
     <main class="max-w-7xl mx-auto w-full px-4 py-6 space-y-6 flex-grow">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- LEFT FORM & FIXTURES TAB -->
+            <!-- LEFT FORM -->
             <div class="lg:col-span-1 space-y-5">
                 <div class="bg-brand-card border border-brand-border rounded-2xl p-5 shadow-xl space-y-4">
                     <h2 class="text-base font-semibold mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ် သုံးသပ်ရန် ထည့်သွင်းပါ
+                        <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ်နှင့် 1xBet Screenshot တင်ရန်
                     </h2>
 
-                    <form id="analyzeForm" class="space-y-4">
+                    <form id="analyzeForm" class="space-y-3">
                         <div>
                             <label class="block text-xs font-medium text-slate-400 mb-1">ပွဲစဉ်အမည် (Match Query)</label>
                             <div class="relative">
-                                <input type="text" id="matchInput" placeholder="e.g. Chelsea vs Tottenham" required
-                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-3 pl-10 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
-                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
+                                <input type="text" id="matchInput" placeholder="e.g. Ipswich vs Nottingham" required
+                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-2.5 pl-10 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+                            </div>
+                        </div>
+
+                        <!-- 1xBet Odds Screenshot Upload -->
+                        <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-2">
+                            <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                                <i class="fa-solid fa-image"></i> 1xBet Odds Screenshot တင်ရန်
+                            </label>
+                            <input type="file" id="screenshotInput" accept="image/*"
+                                class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
+                            <div id="imagePreviewContainer" class="hidden mt-2 relative">
+                                <img id="imagePreview" class="w-full h-32 object-cover rounded-lg border border-brand-border">
+                                <button type="button" id="removeImgBtn" class="absolute top-1 right-1 bg-red-500/80 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">သုံးသပ်ချက် ပုံစံ ရွေးချယ်ပါ</label>
-                            <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-emerald-500">
+                            <label class="block text-xs font-medium text-slate-400 mb-1">သုံးသပ်ချက် ပုံစံ</label>
+                            <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-emerald-500">
                                 <option value="standard">Standard Analysis (ပုံမှန်သုံးသပ်ချက်)</option>
                                 <option value="parlay">Parlay / မောင်း Focus (မောင်းတွဲရန် အန္တရာယ်ကင်း)</option>
                                 <option value="trap">Handicap Line Trap Focus (ကြေးမာယာ ထောင်ခောက်)</option>
@@ -114,15 +126,15 @@
                     </form>
 
                     <!-- LIVE TODAY FIXTURES WIDGET -->
-                    <div class="pt-4 border-t border-brand-border space-y-2">
+                    <div class="pt-3 border-t border-brand-border space-y-2">
                         <div class="flex items-center justify-between">
                             <span class="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
-                                <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i> ယနေ့ ပွဲစဉ်များ (Live Fixtures)
+                                <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i> ယနေ့ ပွဲစဉ်များ
                             </span>
                             <button id="loadFixturesBtn" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded hover:bg-emerald-500/20">ဆွဲထုတ်မည်</button>
                         </div>
-                        <div id="fixturesList" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
-                            <p class="text-xs text-slate-500 italic text-center py-3">"ဆွဲထုတ်မည်" ကိုနှိပ်၍ ယနေ့ပွဲစဉ်များကို ရယူပါ။</p>
+                        <div id="fixturesList" class="space-y-1 max-h-32 overflow-y-auto pr-1">
+                            <p class="text-xs text-slate-500 italic text-center py-2">"ဆွဲထုတ်မည်" ကိုနှိပ်ပါ</p>
                         </div>
                     </div>
                 </div>
@@ -137,7 +149,6 @@
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                             <h3 class="font-semibold text-sm md:text-base" id="matchTitleHeader">သုံးသပ်ချက် ရလဒ်</h3>
                         </div>
-                        <!-- Social / Telegram Export Buttons -->
                         <div class="hidden flex items-center gap-2" id="exportActionBtns">
                             <button onclick="copyTelegramFormat()" class="bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
                                 <i class="fa-brands fa-telegram"></i> <span>Telegram Copy</span>
@@ -155,22 +166,22 @@
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
                             <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold">Football API Real Data နှင့် ဘွတ်ကီကြေးများ ဆွဲထုတ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-sm font-semibold">1xBet Screenshot နှင့် Real Data များကို AI ဖြင့် ဖတ်ရှုဆန်းစစ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
                     <div id="emptyState" class="my-auto py-16 flex flex-col items-center justify-center text-center space-y-3">
                         <div class="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center text-slate-500 text-2xl">
-                            <i class="fa-solid fa-chart-pie"></i>
+                            <i class="fa-solid fa-image"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-400">ပွဲစဉ်ရိုက်ထည့်ပါ သို့မဟုတ် ဘယ်ဘက်မှ ယနေ့ပွဲစဉ်ကို ရွေးချယ်ပါ</p>
+                        <p class="text-sm font-medium text-slate-400">1xBet Screenshot တင်၍ "Analyze" ကို နှိပ်ပါ</p>
                     </div>
 
                     <!-- MARKDOWN OUTPUT -->
                     <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Football API + Gemini Pro</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> 1xBet Screenshot + Gemini 1.5 Flash Vision</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -201,6 +212,10 @@
 
     <script>
         const matchInput = document.getElementById('matchInput');
+        const screenshotInput = document.getElementById('screenshotInput');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const removeImgBtn = document.getElementById('removeImgBtn');
         const analyzeForm = document.getElementById('analyzeForm');
         const analysisDepth = document.getElementById('analysisDepth');
         const analyzeBtn = document.getElementById('analyzeBtn');
@@ -214,8 +229,28 @@
         const loadFixturesBtn = document.getElementById('loadFixturesBtn');
 
         let rawMarkdownResult = "";
+        let base64Image = null;
 
-        // Theme Toggle Logic
+        // Image Upload Preview Logic
+        screenshotInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (uploadEvent) => {
+                    base64Image = uploadEvent.target.result;
+                    imagePreview.src = base64Image;
+                    imagePreviewContainer.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeImgBtn.addEventListener('click', () => {
+            screenshotInput.value = '';
+            base64Image = null;
+            imagePreviewContainer.classList.add('hidden');
+        });
+
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
         themeToggleBtn.addEventListener('click', () => {
@@ -234,34 +269,35 @@
             themeIcon.className = "fa-solid fa-sun";
         }
 
-        // Modal Controls
         const keyModal = document.getElementById('keyModal');
         document.getElementById('openKeyModal').addEventListener('click', () => keyModal.classList.remove('hidden'));
         document.getElementById('closeKeyModal').addEventListener('click', () => keyModal.classList.add('hidden'));
         document.getElementById('saveKeyBtn').addEventListener('click', () => {
-            localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput').value.trim());
+            localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput'].value.trim());
             keyModal.classList.add('hidden');
         });
 
-        analyzeForm.addEventListener('submit', (e) => { e.preventDefault(); triggerAnalysis(matchInput.value.trim()); });
+        analyzeForm.addEventListener('submit', (e) => { 
+            e.preventDefault(); 
+            triggerAnalysis(matchInput.value.trim()); 
+        });
 
-        // Load Today Fixtures from Backend
         loadFixturesBtn.addEventListener('click', async () => {
-            fixturesList.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-3">ယနေ့ပွဲစဉ်များကို ဆွဲထုတ်နေသည်...</p>`;
+            fixturesList.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-2">ယနေ့ပွဲစဉ်များ ဆွဲထုတ်နေသည်...</p>`;
             try {
                 const res = await fetch('/api/fixtures');
                 const data = await res.json();
                 if(data.fixtures && data.fixtures.length > 0) {
                     fixturesList.innerHTML = data.fixtures.map(f => `
-                        <div class="p-2 rounded-xl bg-brand-dark border border-brand-border hover:border-emerald-500 cursor-pointer text-xs transition" onclick="selectFixture('${f}')">
+                        <div class="p-2 rounded-lg bg-brand-dark border border-brand-border hover:border-emerald-500 cursor-pointer text-xs transition" onclick="selectFixture('${f}')">
                             <span class="font-medium text-emerald-400">⚽ ${f}</span>
                         </div>
                     `).join('');
                 } else {
-                    fixturesList.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-3">ယနေ့ တိုက်ရိုက်ပွဲစဉ် မတွေ့ရှိပါ။</p>`;
+                    fixturesList.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-2">ပွဲစဉ် မတွေ့ရှိပါ။</p>`;
                 }
             } catch(err) {
-                fixturesList.innerHTML = `<p class="text-xs text-red-400 italic text-center py-3">ပွဲစဉ်ဆွဲထုတ်၍ မရပါ။</p>`;
+                fixturesList.innerHTML = `<p class="text-xs text-red-400 italic text-center py-2">အမှားရှိနေပါသည်။</p>`;
             }
         });
 
@@ -287,6 +323,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         matchQuery,
+                        imageBase64: base64Image || '',
                         analysisDepth: analysisDepth.value,
                         apiKey: localStorage.getItem('custom_gemini_key') || ''
                     })
@@ -316,13 +353,13 @@
 
         function copyStandardResult() {
             if (!rawMarkdownResult) return;
-            navigator.clipboard.writeText(rawMarkdownResult).then(() => alert('သုံးသပ်ချက်ကို ကူးယူပြီးပါပြီ!'));
+            navigator.clipboard.writeText(rawMarkdownResult).then(() => alert('ကူးယူပြီးပါပြီ!'));
         }
 
         function copyTelegramFormat() {
             if (!rawMarkdownResult) return;
             const tgText = `🔥 **Top Tipster AI Pro Analyst** 🔥\n\n` + rawMarkdownResult + `\n\n📌 *Powered by Top Tipster AI Web App*`;
-            navigator.clipboard.writeText(tgText).then(() => alert('Telegram Channel ပုံစံဖြင့် ကူးယူပြီးပါပြီ!'));
+            navigator.clipboard.writeText(tgText).then(() => alert('Telegram ပုံစံဖြင့် ကူးယူပြီးပါပြီ!'));
         }
     </script>
 </body>

@@ -1,13 +1,17 @@
 {
-  "background_color": "#0b0f17",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "Top Tipster Pro",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Top Tipster Pro",
+  "name": "Top Tipster AI - Pro Football Betting Analyst",
+  "short_name": "Top Tipster AI",
+  "description": "Pro football betting analyst and multi-market odds predictor powered by AI.",
   "start_url": "/",
-  "theme_color": "#10b981",
-  "id": "​top-tipsterpro-ai",
-  "description": "Pro football betting analyst and multi-market odds predictor"
+  "display": "standalone",
+  "background_color": "#0B0F17",
+  "theme_color": "#10B981",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }

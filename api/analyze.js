@@ -43,12 +43,11 @@ export default async function handler(req, res) {
 - Football API Data: ${footballApiData}
 - Analysis Focus: ${analysisDepth}
 
-Please read the exact handicap lines, odds values (e.g. 1.5, 6.36, etc.) directly from the attached 1xBet screenshot, and provide a professional Burmese betting analysis focusing on:
+Please read the exact handicap lines, odds values directly from the attached 1xBet screenshot, and provide a professional Burmese betting analysis focusing on:
 1. Tactical & Form Analysis (အသင်းပုံစံနှင့် နည်းစနစ်ပိုင်း)
 2. Bookmaker Odds Trap & Handicap Line Analysis (Screenshot ပါ 1xBet ကြေးများနှင့် မာယာများကို အထူးဆန်းစစ်ရန်)
 3. Pro Analyst Recommendations (Safe Pick, Alternative Pick, Correct Score)`;
 
-    // Request contents formatting for Gemini Vision API
     let contentsParts = [{ text: userPromptText }];
 
     if (imageBase64 && imageBase64.includes('base64,')) {
@@ -63,7 +62,8 @@ Please read the exact handicap lines, odds values (e.g. 1.5, 6.36, etc.) directl
     }
 
     try {
-        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+        // gemini-3.8-flash မော်ဒယ်ကို ပြန်လည်အသုံးပြုထားပါသည်
+        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${GEMINI_API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -2,7 +2,7 @@
 <html lang="my" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>Top Tipster AI - Pro Football Betting Analyst</title>
     <!-- Telegram Mini App Script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -32,82 +32,100 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', 'Padauk', sans-serif; background-color: #0B0F17; color: #E2E8F0; transition: background 0.3s, color 0.3s; }
+        
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Padauk', sans-serif;
+            background-color: #0B0F17;
+            color: #E2E8F0;
+            transition: background 0.3s, color 0.3s;
+        }
+
         .light { background-color: #F8FAFC !important; color: #0F172A !important; }
         .light .bg-brand-card { background-color: #FFFFFF !important; border-color: #E2E8F0 !important; color: #0F172A !important; }
         .light .bg-brand-dark { background-color: #F1F5F9 !important; border-color: #CBD5E1 !important; color: #0F172A !important; }
         .light .text-white { color: #0F172A !important; }
         .light .text-slate-400, .light .text-slate-500 { color: #64748B !important; }
         
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: inherit; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #2A3447; border-radius: 4px; }
+        
         .neon-glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
         .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #F59E0B; font-weight: bold; margin-top: 1rem; margin-bottom: 0.5rem; }
         .markdown-body ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 0.5rem; }
-        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; }
+        .markdown-body p { margin-bottom: 0.75rem; line-height: 1.6; word-break: break-word; }
         .markdown-body strong { color: #10B981; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black">
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black w-full overflow-x-hidden">
 
     <!-- TOP HEADER -->
-    <header class="bg-brand-card/90 backdrop-blur border-b border-brand-border sticky top-0 z-40 px-4 py-3">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-emerald-500/10 p-2.5 rounded-xl border border-emerald-500/30 text-emerald-400">
-                    <i class="fa-solid fa-chart-line text-xl"></i>
+    <header class="bg-brand-card/90 backdrop-blur border-b border-brand-border sticky top-0 z-40 px-3 py-2.5 sm:px-6 sm:py-3 w-full">
+        <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+                <div class="bg-emerald-500/10 p-2 sm:p-2.5 rounded-xl border border-emerald-500/30 text-emerald-400 shrink-0">
+                    <i class="fa-solid fa-chart-line text-lg sm:text-xl"></i>
                 </div>
-                <div>
-                    <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
-                        Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
+                <div class="truncate">
+                    <h1 class="font-bold text-sm sm:text-lg md:text-xl flex items-center gap-1.5 sm:gap-2 truncate">
+                        Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[9px] sm:text-xs px-1.5 py-0.5 rounded-full uppercase tracking-wider shrink-0">Pro</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Market Odds & Telegram Mini App</p>
+                    <p class="text-[10px] sm:text-xs text-slate-400 truncate">Multi-Market Odds Analyst</p>
                 </div>
             </div>
 
-            <div class="flex items-center space-x-2">
-                <button id="openHistoryBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 px-3 py-2 rounded-xl text-emerald-400 text-xs flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-clock-rotate-left"></i> <span>History</span>
+            <div class="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+                <button id="openHistoryBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-emerald-400 text-[11px] sm:text-xs flex items-center gap-1 transition">
+                    <i class="fa-solid fa-clock-rotate-left"></i> <span class="hidden sm:inline">History</span>
                 </button>
-                <button id="themeToggleBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 p-2.5 rounded-xl text-amber-400 text-xs transition">
+                <button id="themeToggleBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 p-2 sm:p-2.5 rounded-xl text-amber-400 text-[11px] sm:text-xs transition">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
-                <button id="openKeyModal" class="bg-brand-border hover:bg-slate-700 px-3 py-2 rounded-xl text-xs font-medium flex items-center gap-2 transition">
-                    <i class="fa-solid fa-key text-amber-400"></i> Settings
+                <button id="openKeyModal" class="bg-brand-border hover:bg-slate-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs font-medium flex items-center gap-1 sm:gap-2 transition">
+                    <i class="fa-solid fa-key text-amber-400"></i> <span class="hidden sm:inline">Settings</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto w-full px-4 py-6 space-y-6 flex-grow">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main class="w-full max-w-7xl mx-auto px-3 py-4 sm:px-6 sm:py-6 space-y-4 sm:space-y-6 flex-grow overflow-x-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
 
             <!-- LEFT FORM -->
-            <div class="lg:col-span-1 space-y-5">
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-5 shadow-xl space-y-4">
-                    <h2 class="text-base font-semibold mb-2 flex items-center gap-2">
+            <div class="lg:col-span-1 space-y-4 w-full">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-4 sm:p-5 shadow-xl space-y-4 w-full">
+                    <h2 class="text-sm sm:text-base font-semibold flex items-center gap-2 text-slate-200">
                         <i class="fa-solid fa-futbol text-emerald-400"></i> ပွဲစဉ်နှင့် Screenshots ၃ ပုံ တင်ရန်
                     </h2>
 
-                    <form id="analyzeForm" class="space-y-3">
+                    <form id="analyzeForm" class="space-y-3 w-full">
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">ပွဲစဉ်အမည် (Match Query)</label>
-                            <div class="relative">
+                            <label class="block text-[11px] sm:text-xs font-medium text-slate-400 mb-1">ပွဲစဉ်အမည် (Match Query)</label>
+                            <div class="relative w-full">
                                 <input type="text" id="matchInput" placeholder="e.g. Chelsea vs Tottenham" required
-                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-4 py-2.5 pl-10 text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
-                                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
+                                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-3.5 py-2 sm:py-2.5 pl-9 text-xs sm:text-sm placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 sm:top-3 text-slate-500 text-xs sm:text-sm"></i>
                             </div>
                         </div>
 
                         <!-- 3 Screenshots Upload Section -->
-                        <div class="space-y-3">
-                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
-                                <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                        <div class="space-y-2.5 w-full">
+                            <div class="bg-brand-dark/60 p-2.5 sm:p-3 rounded-xl border border-brand-border space-y-1.5 w-full">
+                                <label class="block text-[11px] sm:text-xs font-bold text-amber-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၁။ Handicap / Odds Screenshot
                                 </label>
-                                <input type="file" id="oddsImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer">
+                                <input type="file" id="oddsImgInput" accept="image/*" class="w-full text-[10px] sm:text-[11px] text-slate-400 file:mr-2 file:py-1 file:px-2.5 sm:file:py-1.5 sm:file:px-3 file:rounded-lg file:border-0 file:text-[10px] sm:file:text-[11px] file:font-semibold file:bg-amber-500/10 file:text-amber-400 hover:file:bg-amber-500/20 cursor-pointer">
                                 <div id="oddsPreviewContainer" class="hidden relative mt-1">
                                     <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
                                         <img id="oddsPreview" class="w-full h-auto object-contain rounded">
@@ -116,11 +134,11 @@
                                 </div>
                             </div>
 
-                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
-                                <label class="block text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                            <div class="bg-brand-dark/60 p-2.5 sm:p-3 rounded-xl border border-brand-border space-y-1.5 w-full">
+                                <label class="block text-[11px] sm:text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၂။ အသင်း (၁) နောက်ဆုံးပွဲများ SS
                                 </label>
-                                <input type="file" id="team1ImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
+                                <input type="file" id="team1ImgInput" accept="image/*" class="w-full text-[10px] sm:text-[11px] text-slate-400 file:mr-2 file:py-1 file:px-2.5 sm:file:py-1.5 sm:file:px-3 file:rounded-lg file:border-0 file:text-[10px] sm:file:text-[11px] file:font-semibold file:bg-emerald-500/10 file:text-emerald-400 hover:file:bg-emerald-500/20 cursor-pointer">
                                 <div id="team1PreviewContainer" class="hidden relative mt-1">
                                     <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
                                         <img id="team1Preview" class="w-full h-auto object-contain rounded">
@@ -129,11 +147,11 @@
                                 </div>
                             </div>
 
-                            <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
-                                <label class="block text-xs font-bold text-sky-400 flex items-center gap-1.5">
+                            <div class="bg-brand-dark/60 p-2.5 sm:p-3 rounded-xl border border-brand-border space-y-1.5 w-full">
+                                <label class="block text-[11px] sm:text-xs font-bold text-sky-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၃။ အသင်း (၂) နောက်ဆုံးပွဲများ SS
                                 </label>
-                                <input type="file" id="team2ImgInput" accept="image/*" class="w-full text-[11px] text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-sky-500/10 file:text-sky-400 hover:file:bg-sky-500/20 cursor-pointer">
+                                <input type="file" id="team2ImgInput" accept="image/*" class="w-full text-[10px] sm:text-[11px] text-slate-400 file:mr-2 file:py-1 file:px-2.5 sm:file:py-1.5 sm:file:px-3 file:rounded-lg file:border-0 file:text-[10px] sm:file:text-[11px] file:font-semibold file:bg-sky-500/10 file:text-sky-400 hover:file:bg-sky-500/20 cursor-pointer">
                                 <div id="team2PreviewContainer" class="hidden relative mt-1">
                                     <div class="max-h-28 overflow-y-auto rounded border border-brand-border bg-brand-dark p-1">
                                         <img id="team2Preview" class="w-full h-auto object-contain rounded">
@@ -145,7 +163,7 @@
 
                         <!-- Multi-Market Focus Selector -->
                         <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1"><i class="fa-solid fa-sliders text-amber-400"></i> Market Focus Selector</label>
+                            <label class="block text-[11px] sm:text-xs font-medium text-slate-400 mb-1"><i class="fa-solid fa-sliders text-amber-400"></i> Market Focus Selector</label>
                             <select id="analysisDepth" class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-emerald-500">
                                 <option value="standard">Standard Analysis (ပုံမှန်ဆန်းစစ်ချက်)</option>
                                 <option value="trap">Handicap Line Trap Focus (ကြေးမာယာ ထောင်ခောက်)</option>
@@ -156,16 +174,16 @@
                         </div>
 
                         <button type="submit" id="analyzeBtn" 
-                            class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950">
+                            class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-2.5 sm:py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950 text-xs sm:text-sm">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                             <span>AI ဖြင့် Multi-Market ဆန်းစစ်မည်</span>
                         </button>
                     </form>
 
                     <!-- LIVE TODAY FIXTURES WIDGET -->
-                    <div class="pt-3 border-t border-brand-border space-y-2">
+                    <div class="pt-3 border-t border-brand-border space-y-2 w-full">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
+                            <span class="text-[11px] sm:text-xs text-slate-400 font-semibold flex items-center gap-1.5">
                                 <i class="fa-solid fa-satellite-dish text-emerald-400 animate-pulse"></i> ယနေ့ ပွဲစဉ်များ
                             </span>
                             <button id="loadFixturesBtn" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded hover:bg-emerald-500/20">ဆွဲထုတ်မည်</button>
@@ -178,47 +196,47 @@
             </div>
 
             <!-- RIGHT DISPLAY -->
-            <div class="lg:col-span-2 space-y-5">
-                <div class="bg-brand-card border border-brand-border rounded-2xl p-6 shadow-xl relative min-h-[420px] flex flex-col justify-between">
+            <div class="lg:col-span-2 space-y-4 sm:space-y-5 w-full">
+                <div class="bg-brand-card border border-brand-border rounded-2xl p-4 sm:p-6 shadow-xl relative min-h-[350px] sm:min-h-[420px] flex flex-col justify-between w-full">
                     
-                    <div class="flex items-center justify-between pb-4 border-b border-brand-border">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <h3 class="font-semibold text-sm md:text-base" id="matchTitleHeader">သုံးသပ်ချက် ရလဒ်</h3>
+                    <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-brand-border gap-2">
+                        <div class="flex items-center gap-2 min-w-0">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                            <h3 class="font-semibold text-xs sm:text-sm md:text-base truncate" id="matchTitleHeader">သုံးသပ်ချက် ရလဒ်</h3>
                         </div>
-                        <div class="hidden flex items-center gap-2" id="exportActionBtns">
-                            <button onclick="copyTelegramFormat()" class="bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
-                                <i class="fa-brands fa-telegram"></i> <span>Telegram Copy</span>
+                        <div class="hidden flex items-center gap-1.5 sm:gap-2 shrink-0" id="exportActionBtns">
+                            <button onclick="copyTelegramFormat()" class="bg-sky-500/10 border border-sky-500/30 hover:bg-sky-500/20 text-sky-400 text-[10px] sm:text-xs px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg flex items-center gap-1 transition">
+                                <i class="fa-brands fa-telegram"></i> <span class="hidden sm:inline">Telegram</span> Copy
                             </button>
-                            <button onclick="copyStandardResult()" class="bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 transition">
+                            <button onclick="copyStandardResult()" class="bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 text-emerald-400 text-[10px] sm:text-xs px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg flex items-center gap-1 transition">
                                 <i class="fa-regular fa-copy"></i> <span>ကူးယူမည်</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- LOADING STATE -->
-                    <div id="loadingState" class="hidden my-auto py-12 flex-col items-center justify-center space-y-4 text-center">
-                        <div class="relative w-16 h-16">
+                    <div id="loadingState" class="hidden my-auto py-10 flex-col items-center justify-center space-y-4 text-center w-full">
+                        <div class="relative w-12 h-12 sm:w-16 sm:h-16">
                             <div class="absolute inset-0 rounded-full border-4 border-slate-800"></div>
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
-                            <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
+                            <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-base sm:text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Multi-Market Data များကို Gemini AI ဖြင့် ဆန်းစစ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-xs sm:text-sm font-semibold text-slate-300">ပုံ ၃ ပုံနှင့် Multi-Market Data များကို Gemini AI ဖြင့် ဆန်းစစ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
-                    <div id="emptyState" class="my-auto py-16 flex flex-col items-center justify-center text-center space-y-3">
-                        <div class="w-16 h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center text-slate-500 text-2xl">
+                    <div id="emptyState" class="my-auto py-12 sm:py-16 flex flex-col items-center justify-center text-center space-y-3 w-full">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-brand-dark border border-brand-border flex items-center justify-center text-slate-500 text-xl sm:text-2xl">
                             <i class="fa-solid fa-images"></i>
                         </div>
-                        <p class="text-sm font-medium text-slate-400">Screenshot ၃ ပုံတင်ပြီး "Analyze" ကို နှိပ်ပါ</p>
+                        <p class="text-xs sm:text-sm font-medium text-slate-400">Screenshot ၃ ပုံတင်ပြီး "Analyze" ကို နှိပ်ပါ</p>
                     </div>
 
                     <!-- MARKDOWN OUTPUT -->
-                    <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
+                    <div id="markdownOutput" class="markdown-body hidden py-3 sm:py-4 text-xs sm:text-sm leading-relaxed overflow-x-auto w-full"></div>
 
-                    <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Market AI + Telegram Mini App</span>
+                    <div class="pt-3 sm:pt-4 border-t border-brand-border flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 w-full">
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Market AI + TMA</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -229,9 +247,9 @@
 
     <!-- SETTINGS MODAL -->
     <div id="keyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl relative">
+        <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-md p-5 sm:p-6 space-y-4 shadow-2xl relative">
             <div class="flex justify-between items-center border-b border-brand-border pb-3">
-                <h3 class="font-bold flex items-center gap-2">
+                <h3 class="font-bold flex items-center gap-2 text-sm sm:text-base">
                     <i class="fa-solid fa-key text-amber-400"></i> Gemini API Key (Optional)
                 </h3>
                 <button id="closeKeyModal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -239,7 +257,7 @@
             <div>
                 <label class="block text-xs font-medium text-slate-300 mb-1">Custom API Key</label>
                 <input type="password" id="customApiKeyInput" placeholder="AIzaSy..." 
-                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2.5 text-xs placeholder-slate-600 focus:outline-none focus:border-emerald-500">
+                    class="w-full bg-brand-dark border border-brand-border rounded-xl px-3 py-2 text-xs placeholder-slate-600 focus:outline-none focus:border-emerald-500">
             </div>
             <div class="flex justify-end space-x-2 pt-2">
                 <button id="saveKeyBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition">သိမ်းဆည်းမည်</button>
@@ -249,9 +267,9 @@
 
     <!-- HISTORY MODAL -->
     <div id="historyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl relative max-h-[80vh] flex flex-col">
+        <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-lg p-5 sm:p-6 space-y-4 shadow-2xl relative max-h-[80vh] flex flex-col">
             <div class="flex justify-between items-center border-b border-brand-border pb-3">
-                <h3 class="font-bold flex items-center gap-2 text-emerald-400">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400 text-sm sm:text-base">
                     <i class="fa-solid fa-clock-rotate-left"></i> သုံးသပ်ချက်ဟောင်းများ (History)
                 </h3>
                 <button id="closeHistoryModal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>

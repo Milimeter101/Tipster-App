@@ -74,6 +74,15 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-black w-full overflow-x-hidden">
 
+    <!-- FULL-SCREEN CUSTOM PRELOADER -->
+    <div id="app-splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0F17] text-white transition-opacity duration-500">
+        <div class="flex flex-col items-center space-y-4">
+            <img src="icon.png" alt="Logo" class="w-24 h-24 rounded-2xl shadow-lg animate-pulse">
+            <h1 class="text-xl font-bold tracking-wider text-[#10B981]">Top Tipster AI</h1>
+            <p class="text-xs text-gray-400">Pro Football Betting Analyst</p>
+        </div>
+    </div>
+
     <!-- TOP HEADER -->
     <header class="bg-brand-card/90 backdrop-blur border-b border-brand-border sticky top-0 z-40 px-3 py-2.5 sm:px-6 sm:py-3 w-full">
         <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-2">
@@ -504,6 +513,17 @@
             const tgText = `🔥 **Top Tipster AI Pro Analyst** 🔥\n\n` + rawMarkdownResult + `\n\n📌 *Powered by Top Tipster AI Web App*`;
             navigator.clipboard.writeText(tgText).then(() => alert('Telegram ပုံစံဖြင့် ကူးယူပြီးပါပြီ!'));
         }
+
+        // Custom Preloader Script
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('app-splash');
+                if (splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.remove(), 500);
+                }
+            }, 1000);
+        });
     </script>
 
 </body>

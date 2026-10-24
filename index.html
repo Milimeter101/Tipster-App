@@ -273,7 +273,8 @@
         document.getElementById('openKeyModal').addEventListener('click', () => keyModal.classList.remove('hidden'));
         document.getElementById('closeKeyModal').addEventListener('click', () => keyModal.classList.add('hidden'));
         document.getElementById('saveKeyBtn').addEventListener('click', () => {
-            localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput'].value.trim());
+            // FIXED: changed bracket `]` to parenthesis `)`
+            localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput').value.trim());
             keyModal.classList.add('hidden');
         });
 
@@ -344,7 +345,9 @@
             } catch (err) {
                 loadingState.classList.add('hidden');
                 loadingState.classList.remove('flex');
-                emptyState.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+                // show error inside empty state or alert
                 alert('Error: ' + err.message);
             } finally {
                 analyzeBtn.disabled = false;

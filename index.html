@@ -60,11 +60,14 @@
                     <h1 class="font-bold text-lg md:text-xl flex items-center gap-2">
                         Top Tipster AI <span class="bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs px-2 py-0.5 rounded-full uppercase tracking-wider">Pro Analyst</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Multi-Screenshot 1xBet & Form Analysis</p>
+                    <p class="text-xs text-slate-400">Multi-Screenshot 1xBet & Value Bets Analysis</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-2">
+                <button id="openHistoryBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 px-3 py-2 rounded-xl text-emerald-400 text-xs flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-clock-rotate-left"></i> <span>History</span>
+                </button>
                 <button id="themeToggleBtn" class="bg-brand-dark border border-brand-border hover:bg-slate-800 p-2.5 rounded-xl text-amber-400 text-xs transition">
                     <i class="fa-solid fa-moon" id="themeIcon"></i>
                 </button>
@@ -98,7 +101,6 @@
 
                         <!-- 3 Screenshots Upload Section -->
                         <div class="space-y-3">
-                            <!-- 1. Handicap Screenshot -->
                             <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
                                 <label class="block text-xs font-bold text-amber-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၁။ Handicap / Odds Screenshot
@@ -112,7 +114,6 @@
                                 </div>
                             </div>
 
-                            <!-- 2. Team 1 Recent Games -->
                             <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
                                 <label class="block text-xs font-bold text-emerald-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၂။ အသင်း (၁) နောက်ဆုံးပွဲများ SS
@@ -126,7 +127,6 @@
                                 </div>
                             </div>
 
-                            <!-- 3. Team 2 Recent Games -->
                             <div class="bg-brand-dark/60 p-3 rounded-xl border border-brand-border space-y-1.5">
                                 <label class="block text-xs font-bold text-sky-400 flex items-center gap-1.5">
                                     <i class="fa-solid fa-image"></i> ၃။ အသင်း (၂) နောက်ဆုံးပွဲများ SS
@@ -153,7 +153,7 @@
                         <button type="submit" id="analyzeBtn" 
                             class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 font-bold py-3 px-4 rounded-xl shadow-lg neon-glow-green flex items-center justify-center gap-2 transition text-slate-950">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span>AI ဖြင့် ပုံ ၃ ပုံစလုံး ဆန်းစစ်မည်</span>
+                            <span>AI ဖြင့် Value Bets များ ဆန်းစစ်မည်</span>
                         </button>
                     </form>
 
@@ -198,7 +198,7 @@
                             <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
                             <i class="fa-solid fa-futbol text-emerald-400 absolute inset-0 flex items-center justify-center text-lg animate-pulse"></i>
                         </div>
-                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Real Data များကို Gemini AI ဖြင့် နှိုင်းယှဉ်ဆန်းစစ်နေသည်...</p>
+                        <p id="loadingMessage" class="text-sm font-semibold">ပုံ ၃ ပုံနှင့် Value Bets များကို Gemini AI ဖြင့် နှိုင်းယှဉ်ဆန်းစစ်နေသည်...</p>
                     </div>
 
                     <!-- EMPTY STATE -->
@@ -213,7 +213,7 @@
                     <div id="markdownOutput" class="markdown-body hidden py-4 text-sm leading-relaxed overflow-x-auto"></div>
 
                     <div class="pt-4 border-t border-brand-border flex items-center justify-between text-[11px] text-slate-500">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Vision AI + Football API</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-500"></i> Multi-Vision AI + History Storage</span>
                         <span id="timestampText">--:--</span>
                     </div>
                 </div>
@@ -238,6 +238,25 @@
             </div>
             <div class="flex justify-end space-x-2 pt-2">
                 <button id="saveKeyBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition">သိမ်းဆည်းမည်</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTORY MODAL -->
+    <div id="historyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl relative max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-brand-border pb-3">
+                <h3 class="font-bold flex items-center gap-2 text-emerald-400">
+                    <i class="fa-solid fa-clock-rotate-left"></i> သုံးသပ်ချက်ဟောင်းများ (History)
+                </h3>
+                <button id="closeHistoryModal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div id="historyListContainer" class="space-y-2 overflow-y-auto flex-grow pr-1">
+                <p class="text-xs text-slate-500 italic text-center py-6">သိမ်းဆည်းထားသော သုံးသပ်ချက် မရှိသေးပါ။</p>
+            </div>
+            <div class="pt-2 border-t border-brand-border flex justify-between items-center">
+                <button onclick="clearHistory()" class="text-[11px] text-red-400 hover:underline">အားလုံးဖျက်မည်</button>
+                <button onclick="document.getElementById('historyModal').classList.add('hidden')" class="bg-brand-border px-3 py-1.5 rounded-lg text-xs">ပိတ်မည်</button>
             </div>
         </div>
     </div>
@@ -284,6 +303,7 @@
             document.getElementById(`${type}PreviewContainer`).classList.add('hidden');
         }
 
+        // Theme Toggle
         const themeToggleBtn = document.getElementById('themeToggleBtn');
         const themeIcon = document.getElementById('themeIcon');
         themeToggleBtn.addEventListener('click', () => {
@@ -302,6 +322,7 @@
             themeIcon.className = "fa-solid fa-sun";
         }
 
+        // Settings Modal
         const keyModal = document.getElementById('keyModal');
         document.getElementById('openKeyModal').addEventListener('click', () => keyModal.classList.remove('hidden'));
         document.getElementById('closeKeyModal').addEventListener('click', () => keyModal.classList.add('hidden'));
@@ -309,6 +330,59 @@
             localStorage.setItem('custom_gemini_key', document.getElementById('customApiKeyInput').value.trim());
             keyModal.classList.add('hidden');
         });
+
+        // History Modal Controls
+        const historyModal = document.getElementById('historyModal');
+        document.getElementById('openHistoryBtn').addEventListener('click', () => {
+            renderHistoryList();
+            historyModal.classList.remove('hidden');
+        });
+        document.getElementById('closeHistoryModal').addEventListener('click', () => historyModal.classList.add('hidden'));
+
+        function saveToHistory(match, analysis) {
+            let history = JSON.parse(localStorage.getItem('top_tipster_history') || '[]');
+            history.unshift({ match, analysis, time: new Date().toLocaleString() });
+            if(history.length > 20) history.pop(); // Keep last 20
+            localStorage.setItem('top_tipster_history', JSON.stringify(history));
+        }
+
+        function renderHistoryList() {
+            const container = document.getElementById('historyListContainer');
+            let history = JSON.parse(localStorage.getItem('top_tipster_history') || '[]');
+            if(history.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic text-center py-6">သိမ်းဆည်းထားသော သုံးသပ်ချက် မရှိသေးပါ။</p>`;
+                return;
+            }
+            container.innerHTML = history.map((item, idx) => `
+                <div class="p-3 rounded-xl bg-brand-dark border border-brand-border hover:border-emerald-500 cursor-pointer text-xs space-y-1 transition" onclick="loadHistoryItem(${idx})">
+                    <div class="flex justify-between font-semibold text-emerald-400">
+                        <span>⚽ ${item.match}</span>
+                        <span class="text-[10px] text-slate-500">${item.time}</span>
+                    </div>
+                    <p class="text-slate-400 truncate">${item.analysis.replace(/[#*]/g, '')}</p>
+                </div>
+            `).join('');
+        }
+
+        function loadHistoryItem(index) {
+            let history = JSON.parse(localStorage.getItem('top_tipster_history') || '[]');
+            const item = history[index];
+            if(item) {
+                matchInput.value = item.match;
+                matchTitleHeader.innerText = `${item.match} - (History)`;
+                rawMarkdownResult = item.analysis;
+                markdownOutput.innerHTML = marked.parse(item.analysis);
+                emptyState.classList.add('hidden');
+                markdownOutput.classList.remove('hidden');
+                exportActionBtns.classList.remove('hidden');
+                historyModal.classList.add('hidden');
+            }
+        }
+
+        function clearHistory() {
+            localStorage.removeItem('top_tipster_history');
+            renderHistoryList();
+        }
 
         analyzeForm.addEventListener('submit', (e) => { 
             e.preventDefault(); 
@@ -373,6 +447,9 @@
                 rawMarkdownResult = data.analysis;
                 markdownOutput.innerHTML = marked.parse(data.analysis);
                 timestampText.innerText = new Date().toLocaleTimeString();
+
+                // Save to History
+                saveToHistory(matchQuery, data.analysis);
 
             } catch (err) {
                 loadingState.classList.add('hidden');

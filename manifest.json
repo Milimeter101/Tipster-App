@@ -1,0 +1,13 @@
+{
+  "background_color": "#0b0f17",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Top Tipster Pro",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Top Tipster Pro",
+  "start_url": "/",
+  "theme_color": "#10b981",
+  "id": "​top-tipsterpro-ai",
+  "description": "Pro football betting analyst and multi-market odds predictor"
+}
